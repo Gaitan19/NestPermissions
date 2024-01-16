@@ -26,6 +26,11 @@ export class UsersController {
     return this.usersService.findOneByEmail(email);
   }
 
+  @Post('/userPermissions')
+  findPermissionsByEmail(@Body('email') email: string) {
+    return this.usersService.findPermissionsByEmail(email);
+  }
+
   @Get()
   findAll() {
     return this.usersService.findAll();

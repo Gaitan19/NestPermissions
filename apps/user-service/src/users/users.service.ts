@@ -55,10 +55,20 @@ export class UsersService {
 
   async findOneByEmail(email: string) {
     const user = await this.usersRepository.findOne({
-      where: { email }, relations: ['rols', "rols.permissions"],
+      where: { email }, relations: ['rols'],
     });
-    console.log('user :>> ', user);
+    
     return user;
+  }
+
+  async findPermissionsByEmail(email: string) {
+    const user = await this.usersRepository.findOne({ where: { email },
+      relations: ['rols', "rols.permissions"],
+    });
+
+    const permissions = user.rols.map(role => role.permissions.map(permission=> permission.method));
+    
+    return permissions;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

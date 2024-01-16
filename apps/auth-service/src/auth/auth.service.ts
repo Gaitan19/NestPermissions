@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import {
     BadRequestException,
@@ -90,7 +91,8 @@ export class AuthService {
         }
 
         const userRoleNames = user.rols.map(role => role.rolName);
-        const payload = { email: user.email, rols: userRoleNames };
+       
+        const payload = { email: user.email, rols: userRoleNames};
 
         const token = await this.jwtService.signAsync(payload);
 

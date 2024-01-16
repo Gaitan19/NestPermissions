@@ -23,6 +23,7 @@ export class CustomersController {
   constructor(private readonly customersService: CustomersService) { }
 
   @Post()
+  @Auth()
   create(@Body() createCustomerDto: CreateCustomerDto) {
     return this.customersService.create(createCustomerDto);
   }
@@ -30,17 +31,19 @@ export class CustomersController {
   @Get()
   // @Rols([Role.ADMIN])
   // @UseGuards(AuthGuard, RolesGuard)
-  @Auth([Role.ADMIN])
+  @Auth()
   findAll() {
     return this.customersService.findAll();
   }
 
   @Get(':id')
+  @Auth()
   findOne(@Param('id') id: string) {
     return this.customersService.findOne(+id);
   }
 
   @Patch(':id')
+  @Auth()
   update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
@@ -49,6 +52,7 @@ export class CustomersController {
   }
 
   @Delete(':id')
+  @Auth()
   remove(@Param('id') id: string) {
     return this.customersService.remove(+id);
   }

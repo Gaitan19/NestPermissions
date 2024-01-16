@@ -11,6 +11,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UsersModule } from './users/users.module';
 import { RolsModule } from './rols/rols.module';
 import { AuthModule } from './auth/auth.module';
+import { GuardModule } from './guard/guard.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     RolsModule,
     AuthModule,
+    GuardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
