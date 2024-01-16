@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/main-service/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/main-service/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/main-service",
+  "projects": {
+    "main-service": {
+      "type": "application",
+      "root": "apps/main-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/main-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/main-service/tsconfig.app.json"
+      }
+    },
+    "invoices": {
+      "type": "application",
+      "root": "apps/invoices",
+      "entryFile": "main",
+      "sourceRoot": "apps/invoices/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/invoices/tsconfig.app.json"
+      }
+    },
+    "mailservice": {
+      "type": "application",
+      "root": "apps/mailservice",
+      "entryFile": "main",
+      "sourceRoot": "apps/mailservice/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/mailservice/tsconfig.app.json"
+      }
+    },
+    "user-service": {
+      "type": "application",
+      "root": "apps/user-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/user-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user-service/tsconfig.app.json"
+      }
+    },
+    "auth": {
+      "type": "application",
+      "root": "apps/auth",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
+      }
+    },
+    "auth-service": {
+      "type": "application",
+      "root": "apps/auth-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth-service/tsconfig.app.json"
+      }
+    }
+  }
+}
