@@ -1,10 +1,15 @@
 import { IsArray, IsPositive, IsString } from 'class-validator';
 
 export class CreatePermissionDto {
-    @IsArray()
-    @IsPositive()
-    rolsId: number[];
+  @IsArray()
+  @IsString()
+  endpoints: string[];
 
-    @IsString()
-    method: string;
+  @IsArray()
+  @IsPositive()
+  rolsId: number[];
+
+  @IsArray()
+  @IsString()
+  method: string[];
 }

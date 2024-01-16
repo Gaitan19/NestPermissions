@@ -7,8 +7,11 @@ export class Permission {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    method: string; // Por ejemplo, 'GET', 'POST', 'PATCH', 'DELETE'
+    @Column("simple-array")
+    endpoints: string[]
+
+    @Column("simple-array")
+    method: string[]; 
 
     @ManyToMany(() => Rol, (rol) => rol.permissions)
     rols: Rol[];
