@@ -24,7 +24,8 @@ export class RolesGuard implements CanActivate {
             return true;
         }
 
-
+// [['GET','PATCH']]
+// [[],[]]
         const hasRequiredPermission = userPermissions.some((permissions) => permissions.map((permission)=>permission.toUpperCase()).includes(method));
         if(hasRequiredPermission) return true 
 

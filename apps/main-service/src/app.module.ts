@@ -11,13 +11,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UsersModule } from './users/users.module';
 import { RolsModule } from './rols/rols.module';
 import { AuthModule } from './auth/auth.module';
-import { GuardModule } from './guard/guard.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
     ClientsModule.register([
       { name: 'MAIL_SERVICE', transport: Transport.TCP },
     ]),
+    HttpModule,
     ProductsModule,
     CustomersModule,
     SellersModule,
@@ -27,7 +28,6 @@ import { GuardModule } from './guard/guard.module';
     UsersModule,
     RolsModule,
     AuthModule,
-    GuardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
