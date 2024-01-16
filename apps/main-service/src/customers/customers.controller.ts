@@ -7,15 +7,10 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { AuthGuard } from '../auth/auth.guard';
-import { Rols } from '../decorators/rols.decorator';
-import { RolesGuard } from '../guard/rols.guard';
-import { Role } from '../enums/role.enum';
 import { Auth } from '../decorators/auth.decorators';
 
 @Controller('customers')
@@ -29,8 +24,6 @@ export class CustomersController {
   }
 
   @Get()
-  // @Rols([Role.ADMIN])
-  // @UseGuards(AuthGuard, RolesGuard)
   @Auth()
   findAll() {
     return this.customersService.findAll();
