@@ -13,11 +13,26 @@ import { UpdatePermissionDto } from './dto/update-permission.dto';
 
 @Controller('permissions')
 export class PermissionsController {
-  constructor(private readonly permissionsService: PermissionsService) {}
+  constructor(private readonly permissionsService: PermissionsService) { }
 
   @Post()
   create(@Body() createPermissionDto: CreatePermissionDto) {
     return this.permissionsService.create(createPermissionDto);
+  }
+
+  @Post('check')
+  async checkPermissions(
+    @Body() body: { endpoint: string; method: string; roles: string[] },
+  ): Promise<boolean> {
+    const { endpoint, method, roles } = body;
+
+    const hasPermission = await this.permissionsService.checkPermissions(
+      endpoint,
+      method,
+      roles,
+    );
+
+    return hasPermission;
   }
 
   @Get()

@@ -6,31 +6,26 @@ import { firstValueFrom } from 'rxjs';
 @Injectable()
 export class RolesGuard implements CanActivate {
     private logger;
-    constructor( private readonly httpService: HttpService,) { 
+    constructor(private readonly httpService: HttpService,) {
         this.logger = new Logger();
     }
 
-    async canActivate(context: ExecutionContext):Promise <boolean> {
+    async canActivate(context: ExecutionContext): Promise<boolean> {
 
-        const { user, method } = context.switchToHttp().getRequest();
-
-        const response = await firstValueFrom(
-            this.httpService.post(`http://localhost:4001/users/userPermissions`, { email:user.email })
-        );
-
-        const userPermissions = response.data;
+        const { user, method, path, params } = context.switchToHttp().getRequest();
 
         if (user.rols.includes('admin')) {
             return true;
         }
 
-// [['GET','PATCH']]
-// [[],[]]
-        const hasRequiredPermission = userPermissions.some((permissions) => permissions.map((permission)=>permission.toUpperCase()).includes(method));
-        if(hasRequiredPermission) return true 
+        const endpoint = path.replace(`/${params.id}`, '');
 
+        console.log('endpoint :>> ', endpoint);
+        const response = await firstValueFrom(
+            this.httpService.post(`http://localhost:4001/permissions/check`, { endpoint, method, roles: user.rols })
+        );
 
-        return false;
+        return response.data;
 
     }
 }

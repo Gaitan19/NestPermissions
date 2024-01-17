@@ -41,6 +41,18 @@ export class PermissionsService {
     });
   }
 
+  async checkPermissions(endpoint: string, method: string, roles: string[]): Promise<boolean> {
+    const permissions = await this.permissionsRepository.find({
+      relations: ['rols'],
+    });
+
+    return permissions.some(permission =>
+      roles.every(role => permission.rols.some(rol => rol.rolName === role)) &&
+      permission.endpoints.includes(endpoint) &&
+      permission.method.includes(method),
+    );
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} permission`;
   }
