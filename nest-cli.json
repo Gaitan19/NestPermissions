@@ -63,6 +63,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/auth-service/tsconfig.app.json"
       }
+    },
+    "upload-files": {
+      "type": "application",
+      "root": "apps/upload-files",
+      "entryFile": "main",
+      "sourceRoot": "apps/upload-files/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/upload-files/tsconfig.app.json"
+      }
     }
   }
 }
