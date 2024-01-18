@@ -4,9 +4,9 @@ export class File {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  filename: string;
+  @Column({ type: 'longtext' })
+  image: string;
 
-  @Column({ type: 'text' })
-  base64Image: string;
+  // @Column({ type: 'text' })
+  // base64Image: string;
 }

@@ -9,7 +9,7 @@ import { FilesModule } from './files/files.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3307,
+      port: 3306,
       username: 'root',
       password: 'admin',
       database: 'filesDB',

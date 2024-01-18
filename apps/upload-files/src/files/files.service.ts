@@ -13,10 +13,14 @@ export class FilesService {
     private readonly fileRepository: Repository<File>,
   ) {}
 
-  async uploadFile(filename: string, base64Image: string): Promise<File> {
+  async uploadFile(base64Image: string): Promise<File> {
+    // const newFile = this.fileRepository.create({
+    //   filename,
+    //   base64Image,
+    // });
+
     const newFile = this.fileRepository.create({
-      filename,
-      base64Image,
+      image: base64Image,
     });
 
     return await this.fileRepository.save(newFile);

@@ -24,18 +24,20 @@ import { fileFilter, renameImage } from './helpers/images.helper';
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
+  // , {
+  //   storage: diskStorage({
+  //     destination: './uploads',
+  //     filename: renameImage,
+  //   }),
+  //   fileFilter: fileFilter,
+  // }
+
   @Post('upload')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: renameImage,
-      }),
-      fileFilter: fileFilter,
-    }),
-  )
+  @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     console.log('file', file);
+    const imageBase64 = file.buffer.toString('base64');
+    return this.filesService.uploadFile(imageBase64);
   }
 
   // @Post()
