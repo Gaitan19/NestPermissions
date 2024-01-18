@@ -8,9 +8,9 @@ async function bootstrap() {
     await NestFactory.create<NestExpressApplication>(UploadFilesModule);
   console.log(
     'Ruta completa del directorio estático:',
-    join(__dirname, '..', 'upload-files/public/uploads'),
+    join(__dirname, '..', '../../public'),
   );
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.useStaticAssets(join(__dirname, '..', '../../public'));
   // app.useStaticAssets(join(__dirname, 'uploads'));
 
   await app.listen(3005);
