@@ -4,8 +4,8 @@ export class File {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'longtext' })
-  image: string;
+  @Column()
+  path: string;
 
   // @Column({ type: 'text' })
   // base64Image: string;
