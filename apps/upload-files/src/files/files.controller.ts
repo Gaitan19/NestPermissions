@@ -32,8 +32,12 @@ export class FilesController {
       const base64Image = body.image.split(';base64,').pop();
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
       const filename = `image-${uniqueSuffix}.png`;
-      const imagePath = path.join('./public/uploads', filename);
+      const destinationPath = './public/uploads';
+      const imagePath = path.join(destinationPath, filename);
 
+      if (!fs.existsSync(destinationPath)) {
+        fs.mkdirSync(destinationPath, { recursive: true });
+      }
       fs.writeFileSync(imagePath, base64Image, { encoding: 'base64' });
 
       return {

@@ -6,16 +6,7 @@ import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'admin',
-      database: 'filesDB',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+   
     FilesModule,
   ],
   controllers: [UploadFilesController],

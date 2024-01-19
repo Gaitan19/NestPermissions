@@ -6,11 +6,17 @@ import { RolsModule } from '../rols/rols.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PermissionsModule } from '../permissions/permissions.module';
 import { PermissionsService } from '../permissions/permissions.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), RolsModule, PermissionsModule],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    RolsModule,
+    PermissionsModule,
+    HttpModule,
+  ],
   controllers: [UsersController],
   providers: [UsersService, UsersService, PermissionsService],
   exports: [TypeOrmModule],
 })
-export class UsersModule { }
+export class UsersModule {}

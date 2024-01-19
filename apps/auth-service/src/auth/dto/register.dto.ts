@@ -1,15 +1,25 @@
 /* eslint-disable prettier/prettier */
 import { Transform } from 'class-transformer';
-import { IsArray, IsEmail, IsString, MinLength } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class RegisterDto {
-    @IsArray()
-    rolsId: number[];
-    @IsEmail()
-    email: string;
+  @IsArray()
+  rolsId: number[];
+  @IsEmail()
+  email: string;
 
-    @IsString()
-    @MinLength(6)
-    @Transform(({ value }) => value.trim())
-    password: string;
+  @IsString()
+  @MinLength(6)
+  @Transform(({ value }) => value.trim())
+  password: string;
+
+  @IsOptional()
+  @IsString()
+  avatar: string | null;
 }

@@ -12,6 +12,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ nullable: true })
+  avatar: string | null;
+
   @ManyToMany(() => Rol, (rol) => rol.users)
   @JoinTable()
   rols: Rol[];

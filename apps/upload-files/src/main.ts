@@ -6,10 +6,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
   const app =
     await NestFactory.create<NestExpressApplication>(UploadFilesModule);
-  console.log(
-    'Ruta completa del directorio estático:',
-    join(__dirname, '..', '../../public'),
-  );
+
   app.useStaticAssets(join(__dirname, '..', '../../public'));
   // app.useStaticAssets(join(__dirname, 'uploads'));
 

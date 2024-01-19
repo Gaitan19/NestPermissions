@@ -1,15 +1,18 @@
 /* eslint-disable prettier/prettier */
 import { Rol } from './../rols/entities/rol.entity';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Permission } from '../permissions/entities/permission.entity';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UsersService {
+  private logger;
   constructor(
     @InjectRepository(Rol)
     private rolsRepository: Repository<Rol>,
@@ -18,7 +21,10 @@ export class UsersService {
     private usersRepository: Repository<User>,
     @InjectRepository(Permission)
     private permissionsRepository: Repository<Permission>,
-  ) { }
+    private readonly httpService: HttpService,
+  ) {
+    this.logger = new Logger();
+  }
 
   async create(createUserDto: CreateUserDto) {
     const { rolsId, ...validDto } = createUserDto;
@@ -34,13 +40,11 @@ export class UsersService {
     });
 
     return await this.usersRepository.save(user);
-
-
   }
 
   async findAll() {
     return await this.usersRepository.find({
-      relations: ['rols', "rols.permissions"],
+      relations: ['rols', 'rols.permissions'],
     });
   }
 
@@ -55,24 +59,28 @@ export class UsersService {
 
   async findOneByEmail(email: string) {
     const user = await this.usersRepository.findOne({
-      where: { email }, relations: ['rols'],
+      where: { email },
+      relations: ['rols'],
     });
-    
+
     return user;
   }
 
   async findPermissionsByEmail(email: string) {
-    const user = await this.usersRepository.findOne({ where: { email },
-      relations: ['rols', "rols.permissions"],
+    const user = await this.usersRepository.findOne({
+      where: { email },
+      relations: ['rols', 'rols.permissions'],
     });
 
-    const permissions = user.rols.map(role => role.permissions.map(permission=> permission.method));
-    
+    const permissions = user.rols.map((role) =>
+      role.permissions.map((permission) => permission.method),
+    );
+
     return permissions;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const { rolsId, ...validDto } = updateUserDto;
+    const { rolsId, avatar, ...validDto } = updateUserDto;
 
     const user = await this.usersRepository.findOneBy({ id });
     if (!user) {
@@ -85,6 +93,16 @@ export class UsersService {
       if (rols.length < rolsId.length) {
         throw new BadRequestException('Rol not found');
       }
+    }
+
+    if (avatar) {
+      const responseImage = await firstValueFrom(
+        this.httpService.post(`http://localhost:3005/files/upload`, {
+          image: avatar,
+        }),
+      );
+
+      user.avatar = responseImage.data.path;
     }
 
     const updatedUser = await this.usersRepository.save({

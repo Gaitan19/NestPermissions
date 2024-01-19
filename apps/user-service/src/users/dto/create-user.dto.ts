@@ -1,4 +1,10 @@
-import { IsArray, IsEmail, IsPositive, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsArray()
@@ -10,4 +16,8 @@ export class CreateUserDto {
 
   @IsString()
   password: string;
+
+  @IsOptional()
+  @IsString()
+  avatar: string | null;
 }
