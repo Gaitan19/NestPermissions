@@ -72,6 +72,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/upload-files/tsconfig.app.json"
       }
+    },
+    "testing": {
+      "type": "application",
+      "root": "apps/testing",
+      "entryFile": "main",
+      "sourceRoot": "apps/testing/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/testing/tsconfig.app.json"
+      }
     }
   }
 }
