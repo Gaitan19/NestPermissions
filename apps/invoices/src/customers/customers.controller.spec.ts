@@ -47,7 +47,7 @@ describe('CustomersController', () => {
         id: 1,
         name: 'John',
         lastName: 'Doe',
-        address: '123 Main St',
+        address: 'rubenia',
         phone: 1234567890,
       };
 
@@ -66,7 +66,7 @@ describe('CustomersController', () => {
           id: 1,
           name: 'John',
           lastName: 'Doe',
-          address: '123 Main St',
+          address: 'rubenia',
           phone: 1234567890,
           deletedAt: null,
           invoice: [],
@@ -85,9 +85,9 @@ describe('CustomersController', () => {
   describe('update', () => {
     it('should update a customer', async () => {
       const updateCustomerDto: UpdateCustomerDto = {
-        name: 'UpdatedName',
-        lastName: 'UpdatedLastName',
-        address: 'UpdatedAddress',
+        name: 'kevin',
+        lastName: 'gonzalez',
+        address: 'man',
         phone: 9876543210,
       };
 
@@ -122,7 +122,7 @@ describe('CustomersController', () => {
         id: 1,
         name: 'John',
         lastName: 'Doe',
-        address: '123 Main St',
+        address: 'rubenia',
         phone: 1234567890,
         deletedAt: null,
         invoice: [],

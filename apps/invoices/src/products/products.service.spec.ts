@@ -5,6 +5,7 @@ import { ProductsService } from './products.service';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { BadRequestException } from '@nestjs/common';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -60,9 +61,9 @@ describe('ProductsService', () => {
       const products: Product[] = [
         {
           id: 1,
-          name: 'Product1',
-          description: 'Product1 description',
-          unitofmeasure: 'unit',
+          name: 'destonillador',
+          description: 'estrella',
+          unitofmeasure: 'idk',
           price: 15.99,
           stock: 50,
           deletedAt: null,
@@ -70,8 +71,8 @@ describe('ProductsService', () => {
         },
         {
           id: 2,
-          name: 'Product2',
-          description: 'Product2 description',
+          name: 'martillo',
+          description: 'acero',
           unitofmeasure: 'kg',
           price: 25.99,
           stock: 30,
@@ -100,8 +101,8 @@ describe('ProductsService', () => {
     it('should return a product by id', async () => {
       const product: Product = {
         id: 1,
-        name: 'Product',
-        description: 'Product description',
+        name: 'destonillador',
+        description: 'acero',
         unitofmeasure: 'unit',
         price: 10.99,
         stock: 100,
@@ -120,6 +121,32 @@ describe('ProductsService', () => {
     });
   });
 
+  describe('update', () => {
+    const updateResult: UpdateResult = new UpdateResult();
+
+    it('should update a product', async () => {
+      jest
+        .spyOn(productsRepository, 'update')
+        .mockResolvedValueOnce(updateResult);
+
+      const updateProductDto: UpdateProductDto = {
+        name: 'destornillador',
+        description: 'estrella',
+        unitofmeasure: 'idk',
+        price: 15.99,
+        stock: 50,
+      };
+
+      const result = await service.update(1, updateProductDto);
+
+      expect(productsRepository.update).toHaveBeenCalledWith(
+        1,
+        updateProductDto,
+      );
+      expect(result).toEqual(updateResult);
+    });
+  });
+
   describe('remove', () => {
     it('should remove a product', async () => {
       const updateResult: UpdateResult = new UpdateResult();
@@ -134,5 +161,4 @@ describe('ProductsService', () => {
       expect(result).toEqual(updateResult);
     });
   });
-  // ... (similarmente, puedes seguir para otras operaciones CRUD)
 });
