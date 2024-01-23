@@ -1,6 +1,7 @@
 import { IsDateString, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateInvoiceDto {
+  id: number;
   @IsNumber()
   @IsPositive()
   sellerid: number;
