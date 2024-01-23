@@ -52,6 +52,9 @@ describe('ProductsService', () => {
       expect(productsRepository.save).toHaveBeenCalledWith(
         createProductDto as Product,
       );
+
+      expect(result).toEqual(expect.any(Object));
+      expect(createProductDto.price).toBeGreaterThan(0);
       expect(result).toEqual(createProductDto);
     });
   });
@@ -85,6 +88,7 @@ describe('ProductsService', () => {
 
       const result = await service.findAll();
 
+      expect(result).toEqual(expect.any(Array));
       expect(productsRepository.find).toHaveBeenCalled();
       expect(result).toEqual(products);
     });
@@ -116,6 +120,7 @@ describe('ProductsService', () => {
 
       const result = await service.findOne(1);
 
+      expect(result).toEqual(expect.any(Object));
       expect(productsRepository.findOneBy).toHaveBeenCalledWith({ id: 1 });
       expect(result).toEqual(product);
     });
